@@ -118,11 +118,7 @@ def Calc7Q(Qvalues):
     Qvalues=Qvalues.dropna()
     
     #Calculating Rolling Average
-    MA=Qvalues.rolling(window=7).mean()
-    MA=MA.dropna()
-    
-    #Calculating 7Q
-    val7Q=min(MA)
+    val7Q=Qvalues.rolling(window=7).mean().min()
     
     return ( val7Q )
 
