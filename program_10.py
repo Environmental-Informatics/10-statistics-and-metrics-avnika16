@@ -86,18 +86,22 @@ def CalcRBindex(Qvalues):
        routine returns the RBindex value for the given data array."""
     
     #Checking for NAs
-    t = len(Qvalues.dropna())
-    a=0
+    Qvalues=Qvalues.dropna()
     
-    #Calculating RBIndex
-    if (t > 0):
-        Qvalues = Qvalues.dropna()
-        for i in range(1,len(Qvalues)):
-            a=a+abs(Qvalues[i-1]-Qvalues[i])
-            
-        RBindex=a/sum(Qvalues) 
-    else:
-        RBindex = np.nan
+    #Calculating flow changes
+    flowchange= Qvalues.diff()
+    flowchange=flowchange.dropna()
+    
+    #Calculating abs values 
+    absQ= abs(flowchange)
+    
+    #Calculating sum of absQ
+    abstQ= absQ.sum()
+    
+    #Calculating total yearly discharge
+    total=Qvalues.sum()
+    
+    RBindex= abstQ/total
     
     return ( RBindex )
 
@@ -113,8 +117,12 @@ def Calc7Q(Qvalues):
     #Removing NAs
     Qvalues=Qvalues.dropna()
     
-    #Valculating 7 day low flow 
-    val7Q=min(Qvalues.resample('7D').mean())
+    #Calculating Rolling Average
+    MA=Qvalues.rolling(window=7).mean()
+    MA=MA.dropna()
+    
+    #Calculating 7Q
+    val7Q=min(MA)
     
     return ( val7Q )
 
