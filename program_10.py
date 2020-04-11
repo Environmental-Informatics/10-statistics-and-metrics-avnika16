@@ -178,7 +178,7 @@ def GetMonthlyStatistics(DataDF):
     of monthly values for each year."""
     
     #Column headers
-    cols=['site_no', 'Mean Flow', 'Coeff Var', 'Tqmean', 'R-B Index']
+    cols=['site_no', 'Mean Flow', 'Coeff Var', 'TQmean', 'R-B Index']
     
     #resample for monthly index
     month = DataDF.resample('M').mean()
@@ -234,7 +234,7 @@ def GetMonthlyAverages(MoDataDF):
             
     #Tqmean
     for (n,m) in months:
-            MonthlyAverages.iloc[n,3]=MoDataDF['Tqmean'][m::12].mean()
+            MonthlyAverages.iloc[n,3]=MoDataDF['TQmean'][m::12].mean()
             
     #RBindex
     for (n,m) in months:
