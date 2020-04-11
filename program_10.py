@@ -147,7 +147,7 @@ def GetAnnualStatistics(DataDF):
     starts on October 1."""
     
     #Defining column names
-    cols = ['site_no','Mean Flow', 'Peak Flow','Median','Coeff Var', 'Skew','Tqmean','R-B Index','7Q','3xMedian']
+    cols = ['site_no','Mean Flow', 'Peak Flow','Median','Coeff Var', 'Skew','TQmean','R-B Index','7Q','3xMedian']
     
     #Resampling for water year
     annualdata=DataDF.resample('AS-OCT').mean()
@@ -165,7 +165,7 @@ def GetAnnualStatistics(DataDF):
     WYDataDF['Median']=WY['Discharge'].median()
     WYDataDF['Coeff Var']=(WY['Discharge'].std()/WY['Discharge'].mean())*100
     WYDataDF['Skew']=WY.apply({'Discharge':lambda x: stats.skew(x,nan_policy='omit',bias=False)},raw=True)
-    WYDataDF['Tqmean']=WY.apply({'Discharge':lambda x: CalcTqmean(x)})
+    WYDataDF['TQmean']=WY.apply({'Discharge':lambda x: CalcTqmean(x)})
     WYDataDF['R-B Index']=WY.apply({'Discharge':lambda x: CalcRBindex(x)})
     WYDataDF['7Q']=WY.apply({'Discharge':lambda x: Calc7Q(x)})
     WYDataDF['3xMedian']=WY.apply({'Discharge':lambda x: CalcExceed3TimesMedian(x)})
