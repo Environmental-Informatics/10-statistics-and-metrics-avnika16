@@ -193,7 +193,7 @@ def GetMonthlyStatistics(DataDF):
     MoDataDF['site_no']=MD['site_no'].mean()
     MoDataDF['Mean Flow'] = MD['Discharge'].mean()
     MoDataDF['Coeff Var'] = (MD['Discharge'].std() / MD['Discharge'].mean()) * 100
-    MoDataDF['Tqmean'] = MD.apply({'Discharge':lambda x: CalcTqmean(x)})
+    MoDataDF['TQmean'] = MD.apply({'Discharge':lambda x: CalcTqmean(x)})
     MoDataDF['R-B Index'] = MD.apply({'Discharge':lambda x: CalcRBindex(x)})
     
     return ( MoDataDF )
