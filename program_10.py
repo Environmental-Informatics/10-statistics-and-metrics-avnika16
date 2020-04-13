@@ -181,13 +181,13 @@ def GetMonthlyStatistics(DataDF):
     cols=['site_no', 'Mean Flow', 'Coeff Var', 'TQmean', 'R-B Index']
     
     #resample for monthly index
-    month = DataDF.resample('M').mean()
+    month = DataDF.resample('BMS').mean()
     
     #Creating empty dataframe for monthly stats
     MoDataDF = pd.DataFrame(index = month.index, columns = cols) 
     
     #Creating variable for monthly calcs
-    MD = DataDF.resample('M') 
+    MD = DataDF.resample('BMS') 
     
     #Calculating monthly statistics as described in instructions
     MoDataDF['site_no']=MD['site_no'].mean()
