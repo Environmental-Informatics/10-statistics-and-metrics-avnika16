@@ -71,10 +71,8 @@ def CalcTqmean(Qvalues):
     #Mean flow calculation
     meanQ= Qvalues.mean()
     
-    Qvalues=np.array(Qvalues)
-    
     #finding number of days where Q value is more than mean flow
-    Tqmean=(Qvalues>meanQ).sum()/len(Qvalues) 
+    Tqmean= ((Qvalues>meanQ).sum())/len(Qvalues)
     
     return ( Tqmean )
 
@@ -183,13 +181,13 @@ def GetMonthlyStatistics(DataDF):
     cols=['site_no', 'Mean Flow', 'Coeff Var', 'TQmean', 'R-B Index']
     
     #resample for monthly index
-    month = DataDF.resample('M').mean()
+    month = DataDF.resample('BMS', how='first').mean()
     
     #Creating empty dataframe for monthly stats
     MoDataDF = pd.DataFrame(index = month.index, columns = cols) 
     
     #Creating variable for monthly calcs
-    MD = DataDF.resample('M') 
+    MD = DataDF.resample('BMS', how='first') 
     
     #Calculating monthly statistics as described in instructions
     MoDataDF['site_no']=MD['site_no'].mean()
