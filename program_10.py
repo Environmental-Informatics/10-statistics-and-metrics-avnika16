@@ -71,8 +71,10 @@ def CalcTqmean(Qvalues):
     #Mean flow calculation
     meanQ= Qvalues.mean()
     
+    Qvalues=np.array(Qvalues)
+    
     #finding number of days where Q value is more than mean flow
-    Tqmean= ((Qvalues>meanQ).sum())/len(Qvalues)
+    Tqmean=(Qvalues>meanQ).sum()/len(Qvalues) 
     
     return ( Tqmean )
 
@@ -165,7 +167,7 @@ def GetAnnualStatistics(DataDF):
     WYDataDF['Median']=WY['Discharge'].median()
     WYDataDF['Coeff Var']=(WY['Discharge'].std()/WY['Discharge'].mean())*100
     WYDataDF['Skew']=WY.apply({'Discharge':lambda x: stats.skew(x,nan_policy='omit',bias=False)},raw=True)
-    WYDataDF['TQmean']=WY.apply({'Discharge':lambda x: CalcTqmean(x)})
+    WYDataDF['TQmean']=WY.apply({'Discharge': lambda x: CalcTqmean(x)})
     WYDataDF['R-B Index']=WY.apply({'Discharge':lambda x: CalcRBindex(x)})
     WYDataDF['7Q']=WY.apply({'Discharge':lambda x: Calc7Q(x)})
     WYDataDF['3xMedian']=WY.apply({'Discharge':lambda x: CalcExceed3TimesMedian(x)})
@@ -320,7 +322,7 @@ if __name__ == '__main__':
     #Writing Annual Averages txt
     AvgAnnMet = WC_AnnualAverages
     AvgAnnMet = AvgAnnMet.append(TC_AnnualAverages)
-    AvgAnnMet.to_csv('Average_Annual_Metrics.txt', sep='\t', index=True) #
+    AvgAnnMet.to_csv('Average_Annual_Metrics.txt', sep='\t', index=True) 
     
     #Writing Monthly Averages txt
     AvgMonMet = WC_MonthlyAverages
