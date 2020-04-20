@@ -310,11 +310,13 @@ if __name__ == '__main__':
     #Writing Annual Metrics csv
     AnnualMetrics = WC_WYDataDF
     AnnualMetrics = AnnualMetrics.append(TC_WYDataDF)
+    AnnualMetrics['Station'] = ['Tippe' if x ==3331500 else 'Wildcat' for x in AnnualMetrics['site_no']]
     AnnualMetrics.to_csv('Annual_Metrics.csv', sep=',', index=True) 
     
     #Writing Monthly Metrics csv
     MonMets = WC_MoDataDF
     MonMets = MonMets.append(TC_MoDataDF)
+    MonMets['Station'] = ['Tippe' if x ==3331500 else 'Wildcat' for x in MonMets['site_no']]
     MonMets.to_csv('Monthly_Metrics.csv', sep=',', index=True) 
     
     #Writing Annual Averages txt
